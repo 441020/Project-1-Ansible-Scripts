@@ -21,7 +21,7 @@ This document contains the following details:
 
 The main purpose of this network is to expose a load-balanced and monitored instance of DVWA, the D*mn Vulnerable Web Application.
 
-Load balancing ensures that the application will be highly _responsive, in addition to restricting _____traffic to the network.
+Load balancing ensures that the application will be highly _accessible, in addition to restricting _____traffic to the network.
 - _TODO: What aspect of security do load balancers protect? Acessibility. What is the advantage of a jump box?_It gives the ability to access and manage devices in a security zone.
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _ applications____ and system _logs____.
@@ -34,9 +34,9 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
 | Jump Box | Gateway  | 10.0.0.1   | Linux            |
-| Web 1     | VM         |   10.1.05         | Linux               |
-| Web 2    |    VM      |    10.1.0.6        | Linux                 |
-| Elk Server|   VM      |    10.0.0.4        | Linux            |
+| Web 1    | VM      | 10.1.05     | Linux            |
+| Web 2    |    VM    | 10.1.0.6   | Linux            |
+| Elk Server|   VM    | 10.0.0.4   | Linux            |
 
 ### Access Policies
 
@@ -52,10 +52,10 @@ A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
 |----------|---------------------|----------------------|
-| Jump Box | Yes                    | 40.91.97.97    |
-| Web 1    | No                   |  10.1.0.4                  |
-| Web 2    | No                  |   10.1.0.4                   |
-| Web 3    | No                  |   10.1.0.4                   |
+| Jump Box | Yes                 | 40.91.97.97          |
+| Web 1    | No                  | 10.1.0.5             |
+| Web 2    | No                  | 10.1.0.6             |
+| Web 3    | No                  | 10.1.0.7             |
 
 ### Elk Configuration
 
@@ -64,7 +64,10 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 
 The playbook implements the following tasks:
 - _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
+- (1) Create a new vNet in Azure, preferably in a different region because of resource allocation, but within the same resource group; create a peer-to-peer network connection between their vNets; create a new VM in the new vNet with 2vCPUs and a minimum of 4DiB of memory; add new VM to Ansible's hosts file in the provisioner VM.
+  (3) Create a Anisble playbook that installs Docker and configures an ELK container.
+  (4) Run the playbook to launch the container.
+  (5) Restrict access to the ELK VM.
 - ...
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
@@ -86,12 +89,12 @@ In order to use the playbook, you will need to have an Ansible control node alre
 
 SSH into the control node and follow the steps below:
 - Copy the _host file__ file to the ansible directory_____.
-- Update the __host__ file to include...
+- Update the __host__ file to include.your ELK machine..
 - Run the playbook, and navigate to Kibana____ to check that the installation worked as expected.
 
 _TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Roles. Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? Config file. How do I specify which machine to install the ELK server on versus which to install Filebeat on?_Config file.
+- _Which file is the playbook? Roles. Where do you copy it?_To your Web VMs
+- _Which file do you update to make Ansible run the playbook on a specific machine? Config file. How do I specify which machine to install the ELK server on versus which to install Filebeat on?_This is specified in the config file.
 - _Which URL do you navigate to in order to check that the ELK server is running? Kibana
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
